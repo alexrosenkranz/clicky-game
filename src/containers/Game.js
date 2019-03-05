@@ -1,6 +1,10 @@
 // import dependences and data
 import React, { Component } from 'react';
 import cardData from '../clickCards.json';
+import Navbar from '../components/Navbar'
+import Jumbotron from '../components/Jumbotron';
+import Row from '../components/Row';
+import Card from '../components/Card';
 /* 
 {
   id: 1,
@@ -78,32 +82,28 @@ class Game extends Component {
   render() {
     return (
       <React.Fragment>
-        <nav className="navbar navbar-dark bg-dark d-flex justify-space-between">
-          <span className="navbar-brand mb-0">Clicky Game</span>
-          <span className="scoreInfo text-light">
-            Current Score: {this.state.currentScore} || Top Score: {this.state.topScore}
-          </span>
-        </nav>
-        <div className="jumbotron jumbotron-fluid bg-warning text-dark text-center">
-          <h1>Welcome to the clicky game!</h1>
-          <p>Click on a card to get started. Don't click on the same card twice.</p>
-        </div>
+        <Navbar 
+          currentScore={this.state.currentScore} 
+          topScore={this.state.topScore}
+        />
+        <Jumbotron/>
         <div className="container-fluid">
-          <div className="row align-items-center justify-content-between">
+          <Row className="row justify-content-between">
             {/* print out cards here */}
             {this.state.cardData.map(card => {
               return (
-                <div className="col-12 col-sm-3 col-md-2" key={card.id}>
-                  <img
-                    src={card.image}
-                    alt={card.name}
-                    className="img-fluid img-thumbnail rounded"
-                    onClick={() => this.handleCardClick(card.id)}
+                <Card
+                  key={card.id}
+                  id={card.id}
+                  className="col-12 col-sm-3 col-md-2"
+                  image={card.image}
+                  name={card.name}
+                  imgClass="img-fluid img-thumbnail rounded"
+                  handleCardClick={this.handleCardClick}
                   />
-                </div>
               );
             })}
-          </div>
+          </Row>
         </div>
       </React.Fragment>
     );
